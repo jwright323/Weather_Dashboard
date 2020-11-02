@@ -10,7 +10,7 @@ $("#submitCity").click(function() {
     returntheForecast(cityName);
 });
 // Previous Citys show under search 
-$("#previousSearch").click(function() {
+$("#lastSearch").click(function() {
     var cityName = Event.target.value;
     returnweatherRightNow(cityName);
     returntheForecast(cityName);
@@ -41,7 +41,7 @@ function returnweatherRightNow(cityName) {
     })
 };
 // API call for 5 day weather forecast
-function returnWeatherForecast(cityName) {
+function returntheForecast(cityName) {
     var queryURL = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=imperial&APPID=6c0ac38b22e3e819b50460a5a899f855`;
     $.get(queryURL).then(function(response){
         var forecastInfo = response.list;
@@ -79,7 +79,7 @@ function returnUVIndex(coordinates) {
 // Recent search history
 function createHistoryButton(cityName) {
     var citySearch = cityName.trim();
-    var buttonCheck = $(`#previousSearch > BUTTON[value='${citySearch}']`);
+    var buttonCheck = $(`#lastSearch > BUTTON[value='${citySearch}']`);
     if (buttonCheck.length == 1) {
       return;
     }
@@ -87,7 +87,7 @@ function createHistoryButton(cityName) {
         theCities.push(cityName);
         localStorage.setItem("weatherSearches", JSON.stringify(theCities));
     }
-    $("#previousSearch").prepend(`
+    $("#lastSearch").prepend(`
     <button class="btn btn-light cityHistoryBtn" value='${cityName}'>${cityName}</button>
     `);
 }
