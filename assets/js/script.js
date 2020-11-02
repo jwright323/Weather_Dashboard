@@ -4,14 +4,14 @@ var theForecast = $("#theForecast");
 var theCities;
 // City search 
 $("#submitCity").click(function() {
-    Event.preventDefault();
+    event.preventDefault();
     var cityName = $("#cityInput").val();
     returnweatherRightNow(cityName);
     returntheForecast(cityName);
 });
 // Previous Citys show under search 
 $("#lastSearch").click(function() {
-    var cityName = Event.target.value;
+    var cityName = event.target.value;
     returnweatherRightNow(cityName);
     returntheForecast(cityName);
 })
