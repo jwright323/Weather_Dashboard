@@ -1,6 +1,6 @@
 var apiKey = "619893740c3f9488e288b4750aa68209";
 var weatherRightNow = $("#weatherRightNow");
-var theForecast = $("#weatherForecast");
+var theForecast = $("#theForecast");
 var theCities;
 // City search 
 $("#submitCity").click(function() {
