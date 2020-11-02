@@ -1,19 +1,19 @@
 var apiKey = "619893740c3f9488e288b4750aa68209";
-var currentWeather = $("#currentWeather");
+var weatherRightNow = $("#weatherRightNow");
 var theForecast = $("#weatherForecast");
 var theCities;
 // City search 
 $("#submitCity").click(function() {
     Event.preventDefault();
     var cityName = $("#cityInput").val();
-    returnCurrentWeather(cityName);
-    returnWeatherForecast(cityName);
+    returnweatherRightNow(cityName);
+    returntheForecast(cityName);
 });
 // Previous Citys show under search 
 $("#previousSearch").click(function() {
     var cityName = Event.target.value;
-    returnCurrentWeather(cityName);
-    returnWeatherForecast(cityName);
+    returnweatherRightNow(cityName);
+    returntheForecast(cityName);
 })
 if (localStorage.getItem("weatherSearches")) {
     theCities = JSON.parse(localStorage.getItem("weatherSearches"));
@@ -26,12 +26,12 @@ $("#clear").click(function() {
     localStorage.clear('weatherSearches');
 });
 // API call for City/date data
-function returnCurrentWeather(cityName) {
+function returnweatherRightNow(cityName) {
     var queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&APPID=${apiKey}`;
     $.get(queryURL).then(function(response){
         var currentTime = new Date(response.dt*1000);
         var weatherIcon = `https://openweathermap.org/img/wn/${response.weather[0].icon}@2x.png`;
-        currentWeather.html(`
+        weatherRightNow.html(`
         <h2>${response.name}, ${response.sys.country} (${currentTime.getMonth()+1}/${currentTime.getDate()}/${currentTime.getFullYear()})<img src=${weatherIcon} height="70px"></h2>
         <p>Temperature: ${response.main.temp}&#176;F</p>
         <p>Humidity: ${response.main.humidity}%</p>
@@ -73,7 +73,7 @@ function returnUVIndex(coordinates) {
     $.get(queryURL).then(function(response){
         var currUVIndex = response.value;
         var uvSeverity = "green";
-        currentWeather.append(`<p>UV Index: <span class="uvPadding" style="background-color: ${uvSeverity};">${currUVIndex}</span></p>`);
+        weatherRightNow.append(`<p>UV Index: <span class="uvPadding" style="background-color: ${uvSeverity};">${currUVIndex}</span></p>`);
     })
 }
 // Recent search history
